@@ -5,34 +5,45 @@
 /**
  * _printf - produce output according to format
  * @format: is a character of a string
- * Return: the number of characters printed (excluding the null byte used to end output to strings)
+ * Return: the number of characters printed
+ * (excluding the null byte used to end output to strings)
  */
 
 int _printf(const char *format, ...)
 {
-	int i;
-
+	int i, counter = 0;
 	va_list args;
-	va_start(args, format);
 	char c, *s;
 
-	for(i = 0; format i == '/0'; i++)
+	va_start(args, format);
+
+	for (i = 0; format[i] != '\0'; i++)
 	{
-		if(format [i] == '%')
+		if (format[i] == '%')
 		{
 			i++;
-			if(format [i] == 'c' || format [i] == '%')
+			if (format[i] == 'c' || format[i] == '%')
 			{
 				c = (char)va_arg(args, int);
 				putchar(c);
-				
+				counter++;
 			}
-			else if(format [i] == 's')
+			else if (format[i] == 's')
 			{
-				
+				s = va_arg(args, char *);
+				while (s)
+				{
+					putchar(*s);
+					s++;
+					counter++;
+				}
 			}
 		}
+		else
+		{
+			putchar(format[i]);
+			counter++;
+		}
 	}
-
-
+	return (counter);
 }
