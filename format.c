@@ -22,15 +22,11 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			if (format[i] == 'c')
+			if (format[i] == 'c' || format[i] == '%')
 			{
 				c = (char)va_arg(args, int);
 				putchar(c);
 				counter++;
-			}
-			else if (format[i] == '%')
-			{
-				putchar('%');
 			}
 			else if (format[i] == 's')
 			{
